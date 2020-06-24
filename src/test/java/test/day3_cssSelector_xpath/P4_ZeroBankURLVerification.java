@@ -1,0 +1,48 @@
+package test.day3_cssSelector_xpath;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class P4_ZeroBankURLVerification {
+    public static void main(String[] args) throws InterruptedException {
+
+        //TC #4: ZeroBankURLVerification
+        //1. Open Chrome Browser
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver=new ChromeDriver();
+
+        //2. Go to http://zero.webappsecurity.com/login.html
+        driver.get("http://zero.webappsecurity.com/login.html");
+
+        //3. Get attribute value of href from the "forgot yoru password" link
+
+        //driver.findElement(By.partialLinkText("Forgot"));
+
+        WebElement forgotPasswordLink = driver.findElement(By.partialLinkText("Forgot"));
+
+        // 4. Verify attribute value contains, Expected: "/forgot-password.html"
+
+        String actualHrefValue = forgotPasswordLink.getAttribute("href");
+
+        String expectedInHrefValue="/forgot-password.html";
+        System.out.println("actualHrefValue= "+actualHrefValue);
+
+        if (actualHrefValue.contains(expectedInHrefValue)){
+            System.out.println("Href value verification PASSED!");
+        }else {
+            System.out.println("Href value verification FAILED!");
+        }
+
+
+        System.out.println("Is forgot password displayed? "+forgotPasswordLink.isDisplayed());
+
+
+
+        Thread.sleep(150000);
+
+        driver.quit();
+    }
+}
